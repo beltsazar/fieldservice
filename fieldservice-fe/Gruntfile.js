@@ -8,6 +8,7 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
+	grunt.loadNpmTasks('grunt-protractor-runner');
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -401,7 +402,7 @@ module.exports = function (grunt) {
         src: '{,*/}*.css'
       }
     },
-
+    
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
@@ -428,7 +429,25 @@ module.exports = function (grunt) {
          'karma-phantomjs-launcher'
        ],
       }
-    }
+    },
+    
+    // protractor configuration
+    protractor: {
+        options: {
+          configFile: "test/protractor.conf.js", // Default config file 
+          keepAlive: true, // If false, the grunt process stops when the test fails. 
+          noColor: false, // If true, protractor will not use colors in its output. 
+          args: {
+            // Arguments passed to the command 
+          }
+        },
+        all: {   // Grunt requires at least one target to run so you can simply put 'all: {}' here too. 
+          //options: {
+          //  configFile: "e2e.conf.js", // Target-specific config file 
+          //  args: {} // Target-specific arguments 
+          //}
+        },
+      }
   });
 
 
@@ -460,6 +479,15 @@ module.exports = function (grunt) {
     'connect:test',
     'karma'
   ]);
+  
+  grunt.registerTask('e2e', [
+	 'clean:server',
+	 'wiredep',
+	 'concurrent:test',
+	 'postcss',
+	 'connect:test',
+     'protractor:all'
+	]);
 
   grunt.registerTask('build', [
     'clean:dist',

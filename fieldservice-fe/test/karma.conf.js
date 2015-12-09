@@ -35,7 +35,7 @@ module.exports = function(config) {
       // endbower
       "app/scripts/**/*.js",
       "test/mock/**/*.js",
-      "test/spec/**/*.js"
+      "test/unit/spec/**/*.js"
     ],
     
     // coverage reporter generates the coverage
