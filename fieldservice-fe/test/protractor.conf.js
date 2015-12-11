@@ -6,11 +6,20 @@ exports.config = {
   specs: ['protractor/spec/*.js'],
   onPrepare: function() {
       var SpecReporter = require('jasmine-spec-reporter');
+      var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
+      
       // add jasmine spec reporter
       jasmine.getEnv().addReporter(new SpecReporter({
     	  displayStacktrace: 'all',
     	  colors: false
     	  }));
+      // add HTML/screenshot reporter
+      jasmine.getEnv().addReporter(
+	        new Jasmine2HtmlReporter({
+	          savePath: 'reports/protractor/',
+	          screenshotsFolder: 'images/'
+	        })
+	      );
    },
    jasmineNodeOpts: {
 	   print: function() {}

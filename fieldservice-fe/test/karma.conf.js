@@ -51,7 +51,7 @@ module.exports = function(config) {
     // optionally, configure the reporter
     coverageReporter: {
       type : 'html',
-      dir : 'reports/coverage/'
+      dir : 'reports/unit/coverage/'
     },
 
     // list of files / patterns to exclude
